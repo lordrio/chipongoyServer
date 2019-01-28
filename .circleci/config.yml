@@ -50,8 +50,12 @@ jobs:
       # - run: go test -v ./...
 
       - store_artifacts:
-            path: /go/src/github.com/lordrio/chinpongoyServer/build
-            destination: build
+          path: /go/src/github.com/lordrio/chinpongoyServer/build
+          destination: build
+      - persist_to_workspace:
+          root: /go/src/github.com/lordrio/chinpongoyServer
+          paths:
+            - build
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
