@@ -58,6 +58,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ./artifacts
+      - run : ls
+      - run : ls build/
       - run:
           name: "Publish Release on GitHub"
           command: |
