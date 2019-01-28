@@ -24,19 +24,18 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "da:e5:af:21:fe:9b:3f:0a:b5:a2:ca:cd:35:39:ee:a2"
-      - run: git clone git@gitlab.com:fadzli/goland.git goland/
-
-      # build binary for linux
-      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-linux .
-
-      # build binary for macOS
-      - run: CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-mac .
-
-      # build binary for windows
-      - run: CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-win .
+      - run: git clone git@gitlab.com:fadzli/goland.git /go/src/goland/
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
+
+      # build binary for linux
+      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-linux .
+      # build binary for macOS
+      - run: CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-mac .
+      # build binary for windows
+      - run: CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-win .
+
       - run: go test -v ./...
 
       - store_artifacts:
