@@ -8,7 +8,8 @@ jobs:
       - image: circleci/golang:1.9
     working_directory: /go/src/goland
     steps:
-      - checkout
+      - run: mkdir -p ~/.ssh
+      - run: touch ~/.ssh/known_hosts
       - run: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
       - add_ssh_keys:
           fingerprints:
