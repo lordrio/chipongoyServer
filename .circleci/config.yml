@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
 
-      - run: cat ~/.ssh/id_rsa
+      - run: cat ~/.ssh/id_rsa.pub
 
       # build binary for linux
       - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-linux .
