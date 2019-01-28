@@ -21,13 +21,19 @@ jobs:
     steps:
       - checkout
 
-      # build binary
-      - run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+      # build binary for linux
+      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-linux .
+
+      # build binary for macOS
+      - run: CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-mac .
+
+      # build binary for windows
+      - run: CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -installsuffix cgo -o build/chipongoy-win .
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
       - run: go test -v ./...
 
       - store_artifacts:
-            path: /go/src/github.com/lordrio/chinpongoyServer/main
-            destination: main
+            path: /go/src/github.com/lordrio/chinpongoyServer/build
+            destination: build
