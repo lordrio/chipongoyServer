@@ -20,11 +20,11 @@ jobs:
     working_directory: /go/src/github.com/lordrio/chinpongoyServer
     steps:
       - checkout
-      - run: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
-      - add_ssh_keys:
-          fingerprints:
-            - "da:e5:af:21:fe:9b:3f:0a:b5:a2:ca:cd:35:39:ee:a2"
-      - run: git clone git@gitlab.com:fadzli/goland.git /go/src/goland/
+      # - run: ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - "da:e5:af:21:fe:9b:3f:0a:b5:a2:ca:cd:35:39:ee:a2"
+      # - run: git clone git@gitlab.com:fadzli/goland.git /go/src/goland/
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
