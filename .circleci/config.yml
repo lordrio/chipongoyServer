@@ -3,6 +3,29 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
+  docker-build:
+    environment:
+      IMAGE_NAME: lordrio/chipodoy
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
+  publish-latest:
+    environment:
+      IMAGE_NAME: chipodoy
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:circleci-latest
   # goland:
   #   docker:
   #     - image: circleci/golang:1.9
@@ -90,3 +113,13 @@ workflows:
       #     #     ignore: /.*/
       #     #   tags:
       #     #     only: /^\d+\.\d+\.\d+$/
+      - docker-build:
+          filters:
+            branches:
+              only: master
+      - publish-latest:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
