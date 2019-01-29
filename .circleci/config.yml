@@ -16,7 +16,7 @@ jobs:
           command: docker build -t $IMAGE_NAME:circleci-latest .
   publish-latest:
     environment:
-      IMAGE_NAME: chipodoy
+      IMAGE_NAME: lordrio/chipodoy
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
